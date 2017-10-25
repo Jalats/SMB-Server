@@ -1,1 +1,18 @@
-a
+apt-get update
+apt-get install samba samba-common python-glade2
+#Samba serveri installeerimine
+
+mkdir -p /shares/"folder"
+chown nobody:nogroup /shares/"folder"
+cp /etc/samba/smb.conf /etc/samba/smb.conf.org
+nano /etc/samba/smb.conf
+
+[folder]
+       comment = 
+       path = /shares/"folder"
+       browsable = yes
+       writable = yes
+       guest ok = yes
+       read only = no
+       force user = nobody
+       force group = nogroup
