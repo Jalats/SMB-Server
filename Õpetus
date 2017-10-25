@@ -25,7 +25,38 @@ service smbd restart
 #Kausta loomine
 mkdir -p /shares/"folder"
 
-#Õigusemääramine, et kõik paasevad kaustale ligi.
-chown nobody:nogroup /shares/"folder"
+Grupi loomine. Kasutaja gruppi lisamine.
+addgroup "example"
+useradd "username" -s /usr/sbin/nologin -G "groupname"
+
+#Õigusemääramine, et kõik kes on kruppis pääsevad kaustale ligi.
+chown root:"groupname" /shares/"folder"
+
+Kasutale õiguse andmine.
+chmod 770 "folder"
+
+#Kausta konfigureeminine, et kes on grupis pääsevad kasutajatena kausta ligi.
+nano /etc/samba/smb.conf
+
+[folder]
+       comment = ..........
+       path = /shares/"folder"
+       force user = nobody
+       force group = "group name"
+       browsable = yes
+       writable = yes
+       
+service smbd restart
+
+
+
+
+
+
+
+
+
 
 chmod -R 0755 "folder"
+
+
