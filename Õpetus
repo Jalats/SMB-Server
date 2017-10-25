@@ -2,21 +2,30 @@
 apt-get update
 apt-get install samba samba-common python-glade2
 
-#Juurdepääsuta kausta 
+#Kausta loomine
 mkdir -p /shares/"folder"
-chown nobody:nogroup /shares/"folder"
+
+#Kausta varundamine
 cp /etc/samba/smb.conf /etc/samba/smb.conf.org
+
+#Kasuta konfigureerimine
 nano /etc/samba/smb.conf
 
 [folder]
-       comment = 
+       comment = ..........
        path = /shares/"folder"
        browsable = yes
        writable = yes
        guest ok = yes
-       read only = no
-       force user = nobody
-       force group = nogroup
+
+#Õiguse määramine ja taaskäivitamine
+chmod 777 "folder"
+service smbd restart
+-------------------------------------
+#Kausta loomine
+mkdir -p /shares/"folder"
+
+#Õigusemääramine, et kõik paasevad kaustale ligi.
+chown nobody:nogroup /shares/"folder"
 
 chmod -R 0755 "folder"
-service smbd restart
