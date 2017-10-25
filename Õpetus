@@ -1,7 +1,8 @@
+#Samba serveri installeerimine
 apt-get update
 apt-get install samba samba-common python-glade2
-#Samba serveri installeerimine
 
+#Juurdepääsuta kausta 
 mkdir -p /shares/"folder"
 chown nobody:nogroup /shares/"folder"
 cp /etc/samba/smb.conf /etc/samba/smb.conf.org
@@ -16,3 +17,6 @@ nano /etc/samba/smb.conf
        read only = no
        force user = nobody
        force group = nogroup
+
+chmod -R 0755 "folder"
+service smbd restart
